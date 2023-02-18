@@ -6,6 +6,7 @@ from app.schemas.sche_province import ProvinceDataResponse
 from app.schemas.sche_ward import WardDataResponse, WardRequest
 from app.services.srv_province import province_srv
 from app.services.srv_district import district_srv
+from app.services.srv_ward import ward_srv
 
 router = APIRouter()
 
@@ -24,7 +25,5 @@ async def get(params: DistrictRequest = Depends()):
 
 @router.get("/wards", response_model=DataResponse[WardDataResponse])
 async def get(params: WardRequest = Depends()):
-    data = {"wards": [
-        {"id": "589", "code": "013001", "name": "Thị trấn Đại Nghĩa", "region": "northern", "services": {},
-         "districtId": "588", "provinceId": "1"}]}
+    data = ward_srv.get_wards(district_id=params.district_id)
     return {"data": data}
