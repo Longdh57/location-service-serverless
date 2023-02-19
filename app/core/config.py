@@ -14,7 +14,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_SECONDS: int = 60 * 60 * 24 * 7  # Token expired after 7 days
     SECURITY_ALGORITHM = 'HS256'
     LOGGING_CONFIG_FILE = os.path.join(BASE_DIR, 'logging.ini')
-    S3_BUCKET = os.getenv('S3_BUCKET', '')
+    S3_BUCKET = os.getenv('S3_BUCKET', 'location-service-serverless')
 
 
 settings = Settings()

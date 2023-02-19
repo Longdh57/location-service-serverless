@@ -8,22 +8,24 @@ from app.services.srv_province import province_srv
 from app.services.srv_district import district_srv
 from app.services.srv_ward import ward_srv
 
-router = APIRouter()
+router_province = APIRouter()
+router_district = APIRouter()
+router_ward = APIRouter()
 
 
-@router.get("/provinces", response_model=DataResponse[ProvinceDataResponse])
+@router_province.get("/provinces", response_model=DataResponse[ProvinceDataResponse])
 async def get():
     data = province_srv.get_provinces()
     return {"data": data}
 
 
-@router.get("/districts", response_model=DataResponse[DistrictDataResponse])
+@router_district.get("/districts", response_model=DataResponse[DistrictDataResponse])
 async def get(params: DistrictRequest = Depends()):
     data = district_srv.get_districts(province_id=params.province_id)
     return {"data": data}
 
 
-@router.get("/wards", response_model=DataResponse[WardDataResponse])
+@router_ward.get("/wards", response_model=DataResponse[WardDataResponse])
 async def get(params: WardRequest = Depends()):
     data = ward_srv.get_wards(district_id=params.district_id)
     return {"data": data}
